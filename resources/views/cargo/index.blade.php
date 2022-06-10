@@ -71,6 +71,10 @@
     <div >
 
         <div>
+            @include('partial.flash')
+        </div>
+
+        <div>
             <h5 class="header" >cargo saving</h5>
         </div>
 

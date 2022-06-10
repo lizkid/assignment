@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Imports\CargosImport;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 class cargoController extends Controller
@@ -30,7 +31,9 @@ class cargoController extends Controller
 
         Excel::import(new  CargosImport(), $file);
 
-        return response('Import Successful, Please Refresh Page');
+        Session::flash('alert-success', 'saved successfully');
+
+        return redirect('/cargo/create');
     }
 
     public function getAllCargos()
