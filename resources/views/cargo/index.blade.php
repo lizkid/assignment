@@ -67,6 +67,11 @@
             display: none;
         }
 
+        .bg-light
+        {
+            background: #365a94
+        }
+
     </style>
 
 </head>

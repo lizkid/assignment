@@ -11,6 +11,11 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if (Auth::check())
+        {
+            return redirect('/cargo');
+        }
+
         return view('login.index');
     }
 
@@ -18,6 +23,7 @@ class AuthController extends Controller
     {
         $username = $request->username;
         $password = $request->password;
+
 
         if (Auth::attempt(['username'=>$username, 'password'=>$password]))
         {
@@ -40,6 +46,9 @@ class AuthController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
+
+        Session::flash('alert-success', 'logout successfully');
+        return redirect('/');
 
 
     }

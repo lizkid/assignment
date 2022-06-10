@@ -33,7 +33,7 @@ class CargoController extends Controller
 
             Session::flash('alert-success', 'saved successfully');
 
-            return redirect('/');
+            return redirect('/cargo');
 
         }
 
@@ -41,9 +41,10 @@ class CargoController extends Controller
         {
             Log::error($exception);
 
-            Session::flash('alert-danger', 'failed: Server error');
+            Session::flash('alert-danger', 'failed: Server error to insert record, Please make sure all required fields
+            are filled');
 
-            return redirect('/');
+            return redirect('/cargo');
         }
 
 

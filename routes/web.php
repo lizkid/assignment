@@ -15,16 +15,20 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'save']);
-Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::group(['prefix'=>'/cargo'], function (){
-    Route::get('/', [cargoController::class, 'create']);
-    Route::post('/save', [cargoController::class, 'upload']);
-    Route::get('/get-all-cargos', [cargoController::class, 'getAllCargos']);
+Route::group(['middleware'=>'auth'], function (){
+
+    Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::group(['prefix'=>'/cargo'], function (){
+        Route::get('/', [cargoController::class, 'create']);
+        Route::post('/save', [cargoController::class, 'upload']);
+        Route::get('/get-all-cargos', [cargoController::class, 'getAllCargos']);
+    });
 });
+
+
+//web service API
+Route::get('/api/v1/get-saved-cargos', [cargoController::class, 'getAllCargos']);

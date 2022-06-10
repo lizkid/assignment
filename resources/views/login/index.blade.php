@@ -26,10 +26,13 @@
 
 </head>
 
-<body>
+<body style="background: #365a94; color: white;">
 
-<div style="margin-top: 50px;">
+<div style="margin-top: 50px; ">
 
+    <h4 style="text-transform: capitalize; text-align: center; padding: 5px">
+        Welcome to cargo upload system
+    </h4>
 
     <div style="left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute;">
 
@@ -39,7 +42,7 @@
 
         <div>
             <h5 class="text-center" >Login </h5>
-            <h5 class="text-center">(<span style="font-size: 14px; color: grey;">default username: admin, default password:admin</span>)</h5>
+            <h5 class="text-center">(<span style="font-size: 14px; color: white;">default username: admin, default password:admin</span>)</h5>
         </div>
 
         <div style="margin: auto; display: block; width: 100%">

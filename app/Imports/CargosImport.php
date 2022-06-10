@@ -31,9 +31,8 @@ class CargosImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             'destuffing'     => $row['destuffingusd'],
             'lifting'    => $row['lifting_usd'],
         ]);
-
-
     }
+
 
 
 }
