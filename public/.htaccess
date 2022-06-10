@@ -20,10 +20,11 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-<Files .env>
+<Files env>
 order allow,deny
 Deny from all
 </Files>
+
 
 <Files storage>
 order allow,deny

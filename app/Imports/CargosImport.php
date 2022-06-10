@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Cargo;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CargosImport implements ToModel, WithHeadingRow
+class CargosImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
     * @param array $row
@@ -41,7 +42,7 @@ class CargosImport implements ToModel, WithHeadingRow
             'remarks'    => 'required',
             'wharfage' => 'required',
             'penalty'     => 'required',
-//            'storage'    => $row['storage_usd'],
+            'storage'    => 'required',
             'electricity' => 'required',
             'destuffing'     => 'required',
             'lifting'    => 'required',
