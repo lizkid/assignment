@@ -24,12 +24,13 @@
         }
 
         .main-wrapper{
-            top: 50%; right: 50%; transform: translate(50%, -50%); position: absolute;
+            margin: 20px;
         }
 
         .header
         {
-            text-align: center; margin: 20px
+            text-align: center; margin: 20px;
+            text-transform: capitalize;
         }
 
         .submit_btn_container{
@@ -86,7 +87,7 @@
                 @endif
                 <div style="display: flex; flex-direction: row; justify-content: start">
                     <div class="input-group mb-3">
-                        <input type="file" name="file" class="form-control" id="inputGroupFile02">
+                        <input required type="file" name="file" class="form-control" id="inputGroupFile02">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\cargo\cargoController;
+use App\Http\Controllers\Cargo\cargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +14,13 @@ use App\Http\Controllers\cargo\cargoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', [cargoController::class, 'create']);
 
 Route::group(['prefix'=>'/cargo'], function (){
-    Route::get('/create', [cargoController::class, 'create']);
     Route::post('/save', [cargoController::class, 'upload']);
     Route::get('/get-all-cargos', [cargoController::class, 'getAllCargos']);
 });

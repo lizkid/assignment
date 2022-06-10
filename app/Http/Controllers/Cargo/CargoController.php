@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\cargo;
+namespace App\Http\Controllers\Cargo;
 
 use App\Http\Controllers\Controller;
 use http\Env\Response;
@@ -11,7 +11,7 @@ use App\Imports\CargosImport;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
-class cargoController extends Controller
+class CargoController extends Controller
 {
     public function create()
     {
@@ -22,18 +22,38 @@ class cargoController extends Controller
     public function upload(Request $request)
     {
         $validate = $request->validate([
-        'file'=>'required|mimes:csv,xls,xlx,xlsx'
+        'file'=>'required|mimes:xls,xlx,xlsx'
         ]);
 
         $file = $request->file('file');
 
-        config(['excel.import.startRow' => 4]);
 
-        Excel::import(new  CargosImport(), $file);
+        DB::beginTransaction();
 
-        Session::flash('alert-success', 'saved successfully');
+        try {
 
-        return redirect('/cargo/create');
+            config(['excel.import.startRow' => 4]);
+
+            Excel::import(new  CargosImport(), $file);
+
+            Session::flash('alert-success', 'saved successfully');
+
+            return redirect('/cargo/create');
+
+        }
+
+        catch (\Throwable $exception)
+        {
+            DB::rollBack();
+
+            Log::error($exception);
+
+            Session::flash('alert-danger', 'failed: Server error');
+
+            return redirect('/cargo/create');
+        }
+
+
     }
 
     public function getAllCargos()
