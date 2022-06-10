@@ -22,7 +22,7 @@ class CargoController extends Controller
     public function upload(Request $request)
     {
         $validate = $request->validate([
-        'file'=>'required|mimes:xls,xlx,xlsx'
+        'file'=>'required|mimes:xls,xlx,xlsx|max:10000'
         ]);
 
         $file = $request->file('file');

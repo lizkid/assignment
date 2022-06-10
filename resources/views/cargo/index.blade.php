@@ -116,7 +116,7 @@
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table class="table customize-table mb-0 v-middle">
+                            <table class="table customize-table mb-0 v-middle border">
                                 <thead class="table-light">
                                 <tr>
                                     <th class="border-bottom border-top">No:</th>
