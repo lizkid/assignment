@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -24,20 +25,32 @@ class AuthController extends Controller
         $username = $request->username;
         $password = $request->password;
 
+        try {
 
-        if (Auth::attempt(['username'=>$username, 'password'=>$password]))
-        {
-            $request->session()->regenerate();
+            if (Auth::attempt(['username'=>$username, 'password'=>$password]))
+            {
+                $request->session()->regenerate();
 
-            Session::flash('alert-success', 'successfully login');
-            return redirect('/cargo');
+                Session::flash('alert-success', 'successfully login');
+                return redirect('/cargo');
+            }
+
+            else
+            {
+                Session::flash('alert-danger', 'Wrong username or password');
+                return back();
+            }
         }
 
-        else
+        catch (\Throwable $exception)
         {
-            Session::flash('alert-danger', 'Wrong username or password');
+            Log::error($exception);
+
+            Session::flash('alert-danger', 'Internal server error');
             return back();
+
         }
+
 
     }
 

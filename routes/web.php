@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Cargo\cargoController;
+use App\Http\Controllers\Cargo\CargoController;
 use App\Http\Controllers\Auth\AuthController;
 
 /*
@@ -23,12 +23,12 @@ Route::group(['middleware'=>'auth'], function (){
     Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::group(['prefix'=>'/cargo'], function (){
-        Route::get('/', [cargoController::class, 'create']);
-        Route::post('/save', [cargoController::class, 'upload']);
-        Route::get('/get-all-cargos', [cargoController::class, 'getAllCargos']);
+        Route::get('/', [CargoController::class, 'create']);
+        Route::post('/save', [CargoController::class, 'upload']);
+        Route::get('/get-all-cargos', [CargoController::class, 'getAllCargos']);
     });
 });
 
 
 //web service API
-Route::get('/api/v1/get-saved-cargos', [cargoController::class, 'getAllCargos']);
+Route::get('/api/v1/get-saved-cargos', [CargoController::class, 'getAllCargos']);
