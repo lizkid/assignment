@@ -47,19 +47,19 @@
         }
 
         .submit_btn_container > button, .view_btn_container > button{
-            background: green;
+            background: #464C55;
             color: white;
             width: 100px;
-            border-color: green;
-            outline: green;
+            border-color: #464C55;
+            outline: #464C55;
             padding: 5px;
             transition: 0.3s ease-in-out;
         }
 
         .submit_btn_container > button:hover, .view_btn_container > button:hover{
-            background: #3a983a;
-            border-color: #3a983a;
-            outline: #3a983a;
+            background: #464C55;
+            border-color: #464C55;
+            outline: #464C55;
         }
 
         #table-container
@@ -169,7 +169,6 @@
 
     $(document).ready(function () {
 
-        $('#myTable').DataTable();
 
         $('#view_btn').click(function () {
 
@@ -190,7 +189,7 @@
 
                         if (res.data.length == 0)
                         {
-                            $('.table-responsive').text('No records found')
+                            $('.table-responsive').text('No records found, start uploading now')
                         }
 
                         else
@@ -214,11 +213,16 @@
 										</tr>");
                             });
 
-                            $('#table-container').show()
 
-                            $('#view_btn').text('View Data')
-                            $('#view_btn').prop('disabled', false)
                         }
+
+                        $('#table-container').show()
+
+                        $('#view_btn').text('View Data')
+                        $('#view_btn').prop('disabled', false)
+
+                        $('#myTable').DataTable();
+
 
                     }
 

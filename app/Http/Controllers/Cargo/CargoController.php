@@ -27,12 +27,7 @@ class CargoController extends Controller
 
         $file = $request->file('file');
 
-
-        DB::beginTransaction();
-
         try {
-
-            config(['excel.import.startRow' => 4]);
 
             Excel::import(new  CargosImport(), $file);
 
@@ -44,8 +39,6 @@ class CargoController extends Controller
 
         catch (\Throwable $exception)
         {
-            DB::rollBack();
-
             Log::error($exception);
 
             Session::flash('alert-danger', 'failed: Server error');

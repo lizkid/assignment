@@ -4,10 +4,12 @@ namespace App\Imports;
 
 use App\Models\Cargo;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Facades\Excel;
 
-class CargosImport implements ToModel, WithHeadingRow, WithValidation
+class CargosImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
 {
     /**
     * @param array $row
@@ -30,22 +32,8 @@ class CargosImport implements ToModel, WithHeadingRow, WithValidation
             'lifting'    => $row['lifting_usd'],
         ]);
 
+
     }
 
-    public function rules(): array
-    {
-        return [
-            'cargo_no' =>'required',
-            'cargo_type'    => 'required',
-            'cargo_size' => 'required',
-            'weight'     => 'required',
-            'remarks'    => 'required',
-            'wharfage' => 'required',
-            'penalty'     => 'required',
-            'storage'    => 'required',
-            'electricity' => 'required',
-            'destuffing'     => 'required',
-            'lifting'    => 'required',
-        ];
-    }
+
 }
