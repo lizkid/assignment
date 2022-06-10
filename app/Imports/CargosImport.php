@@ -23,7 +23,7 @@ class CargosImport implements ToModel, WithHeadingRow
             'remarks'    => $row['remarks'],
             'wharfage' => $row['wharfage_usd'],
             'penalty'     => $row['penalty_days'],
-//            'storage'    => $row['storage_usd'],
+            'storage'    => $row['storage_usd'],
             'electricity' => $row['electricity_usd'],
             'destuffing'     => $row['destuffingusd'],
             'lifting'    => $row['lifting_usd'],

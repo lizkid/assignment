@@ -38,7 +38,7 @@ class CargoController extends Controller
 
             Session::flash('alert-success', 'saved successfully');
 
-            return redirect('/cargo/create');
+            return redirect('/');
 
         }
 
@@ -50,7 +50,7 @@ class CargoController extends Controller
 
             Session::flash('alert-danger', 'failed: Server error');
 
-            return redirect('/cargo/create');
+            return redirect('/');
         }
 
 

@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('resources/css/style.css')}}">
 
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <style>
         .spinner-border
 
@@ -60,6 +61,12 @@
             border-color: #3a983a;
             outline: #3a983a;
         }
+
+        #table-container
+        {
+            display: none;
+        }
+
     </style>
 
 </head>
@@ -111,12 +118,12 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
 
-            <div class=" d-flex align-items-stretch">
+            <div id="table-container" >
                 <div class="card w-100">
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table class="table customize-table mb-0 v-middle border">
+                            <table id="myTable" class="table customize-table mb-0 v-middle table-bordered">
                                 <thead class="table-light">
                                 <tr>
                                     <th class="border-bottom border-top">No:</th>
@@ -154,14 +161,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
 <script>
+
+
+
     $(document).ready(function () {
+
+        $('#myTable').DataTable();
 
         $('#view_btn').click(function () {
 
+            $('#view_btn').text('Loading...')
+            $('#view_btn').prop('disabled', true)
+
             setTimeout(function () {
 
-                $('.spinner-border').show();
 
                 $.ajax({
 
@@ -185,8 +201,8 @@
                                 $('.latest-trans').append("<tr>\
                                        \<td>"+x+"</td>\
 										<td>"+item.cargo_no+"</td>\
-										<td>"+item.cargo_size+"</td>\
 										<td>"+item.cargo_type+"</td>\
+										<td>"+item.cargo_size+"</td>\
 										\<td>"+item.weight+"</td>\
 										<td>"+item.remarks+"</td>\
 										\<td>"+item.wharfage+"</td>\
@@ -197,18 +213,27 @@
 										<td>"+item.lifting+"</td>\
 										</tr>");
                             });
+
+                            $('#table-container').show()
+
+                            $('#view_btn').text('View Data')
+                            $('#view_btn').prop('disabled', false)
                         }
 
                     }
 
                 });
 
-                $('.spinner-border').hide();
+
+
+
             }, 3000)
 
         })
     })
 </script>
+
+
 </body>
 
 
