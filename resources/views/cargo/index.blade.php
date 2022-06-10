@@ -47,19 +47,19 @@
         }
 
         .submit_btn_container > button, .view_btn_container > button{
-            background: #464C55;
+            background: green;
             color: white;
             width: 100px;
-            border-color: #464C55;
+            border-color: green;
             outline: #464C55;
             padding: 5px;
             transition: 0.3s ease-in-out;
         }
 
         .submit_btn_container > button:hover, .view_btn_container > button:hover{
-            background: #464C55;
-            border-color: #464C55;
-            outline: #464C55;
+            background: green;
+            border-color: green;
+            outline: green;
         }
 
         #table-container
@@ -72,6 +72,33 @@
 </head>
 
 <body>
+
+<div id="nav-content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <h5>Assignment</h5>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('/cargo')) ? 'active' : '' }}" aria-current="page" href="{{url('/cargo')}}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('user/login')) ? 'active' : '' }}" href="{{url('/logout')}}">Logout</a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
 <div class="main-wrapper">
 

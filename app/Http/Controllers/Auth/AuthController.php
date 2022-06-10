@@ -21,6 +21,8 @@ class AuthController extends Controller
 
         if (Auth::attempt(['username'=>$username, 'password'=>$password]))
         {
+            $request->session()->regenerate();
+
             Session::flash('alert-success', 'successfully login');
             return redirect('/cargo');
         }
@@ -30,6 +32,15 @@ class AuthController extends Controller
             Session::flash('alert-danger', 'Wrong username or password');
             return back();
         }
+
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
 
     }
 }

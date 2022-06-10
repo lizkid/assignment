@@ -21,6 +21,7 @@ use App\Http\Controllers\Auth\AuthController;
 
 Route::get('/', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'save']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::group(['prefix'=>'/cargo'], function (){
     Route::get('/', [cargoController::class, 'create']);

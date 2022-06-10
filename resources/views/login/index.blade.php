@@ -31,14 +31,15 @@
 <div style="margin-top: 50px;">
 
 
-    <div style="margin: auto; display: block; width: 60%;">
+    <div style="left: 50%; top: 50%; transform: translate(-50%, -50%); position: absolute;">
 
         <div>
             @include('partial.flash')
         </div>
 
         <div>
-            <h5 class="header" >Login (<span style="font-size: 14px; color: grey;">default username: admin, default password:admin</span>)</h5>
+            <h5 class="text-center" >Login </h5>
+            <h5 class="text-center">(<span style="font-size: 14px; color: grey;">default username: admin, default password:admin</span>)</h5>
         </div>
 
         <div style="margin: auto; display: block; width: 100%">
@@ -57,7 +58,7 @@
 
 
                 <div>
-                    <button class="btn-info" type="submit">Login</button>
+                    <button class="btn btn-info" type="submit">Login</button>
                 </div>
 
 
