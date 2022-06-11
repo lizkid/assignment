@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.7 (64 bit)
-MySQL - 8.0.29-0ubuntu0.20.04.3 : Database - assignment
+MySQL - 10.4.14-MariaDB : Database - assignment
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 8.0.29-0ubuntu0.20.04.3 : Database - assignment
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`assignment` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`assignment` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `assignment`;
 
@@ -21,22 +21,22 @@ USE `assignment`;
 DROP TABLE IF EXISTS `cargos`;
 
 CREATE TABLE `cargos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `cargo_no` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
-  `cargo_type` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cargo_no` varchar(35) NOT NULL,
+  `cargo_type` varchar(11) NOT NULL,
   `cargo_size` decimal(8,0) NOT NULL,
   `weight` decimal(10,2) NOT NULL,
-  `remarks` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` varchar(25) DEFAULT NULL,
   `wharfage` decimal(10,2) NOT NULL,
-  `penalty` int NOT NULL,
+  `penalty` int(11) NOT NULL,
   `storage` decimal(10,2) NOT NULL,
   `electricity` decimal(40,2) unsigned NOT NULL,
   `destuffing` decimal(40,2) NOT NULL,
   `lifting` decimal(40,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `cargos` */
 
@@ -45,22 +45,22 @@ CREATE TABLE `cargos` (
 DROP TABLE IF EXISTS `cff`;
 
 CREATE TABLE `cff` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `cargo_no` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `cargo_type` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `cargo_size` int DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cargo_no` varchar(20) NOT NULL,
+  `cargo_type` varchar(10) NOT NULL,
+  `cargo_size` int(11) DEFAULT NULL,
   `weight` decimal(8,2) DEFAULT NULL,
-  `remarks` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `remarks` varchar(25) DEFAULT NULL,
   `wharfage` double DEFAULT NULL,
-  `penalty` int DEFAULT NULL,
+  `penalty` int(11) DEFAULT NULL,
   `storage` float DEFAULT NULL,
   `electricity` float DEFAULT NULL,
   `destuffing` float DEFAULT NULL,
   `lifting` float DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `cff` */
 
@@ -81,18 +81,34 @@ insert  into `cff`(`id`,`cargo_no`,`cargo_type`,`cargo_size`,`weight`,`remarks`,
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(35) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`username`,`password`,`created_at`,`updated_at`) values 
 (1,'admin','$2y$10$NP4GOb7A2yDK9MSRTn7Q1erethDPZy3.NcKf7f2z5ZArqe4lfpwjO','2022-06-10 16:42:52','2022-06-10 16:42:52');
+
+/* Procedure structure for procedure `getAllCargosSP` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getAllCargosSP` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllCargosSP`()
+BEGIN
+	
+	select `id`,`cargo_no`,`cargo_type`,`cargo_size`,
+	`weight`,`remarks`,`wharfage`,`penalty`,`storage`,`electricity`,`destuffing`,
+	`lifting`,`created_at`,`updated_at`
+	from cargos;
+	END */$$
+DELIMITER ;
 
 /* Procedure structure for procedure `saveCargoSP` */
 
@@ -100,7 +116,7 @@ insert  into `users`(`id`,`username`,`password`,`created_at`,`updated_at`) value
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`syntaxroot`@`%` PROCEDURE `saveCargoSP`(cNo varchar(20), cType varchar(10), cSize int(20), weight float(10),  
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `saveCargoSP`(cNo varchar(20), cType varchar(10), cSize int(20), weight float(10),  
     remarks varchar(25), wharfage float(10), penalty int(8), cStorage float(10),
     ele float(10), dest float(8), lift float(10)
      )
@@ -114,24 +130,6 @@ BEGIN
 	else
 	select 'failed' as message, '0' as result_code;
 	end if;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `getAllCargosSP` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `getAllCargosSP` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`syntaxroot`@`%` PROCEDURE `getAllCargosSP`()
-BEGIN
-	
-	select `id`,`cargo_no`,`cargo_type`,`cargo_size`,
-	`weight`,`remarks`,`wharfage`,`penalty`,`storage`,`electricity`,`destuffing`,
-	`lifting`,`created_at`,`updated_at`
-	from cargos;
-
 	END */$$
 DELIMITER ;
 

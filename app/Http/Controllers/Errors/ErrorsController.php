@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Errors;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Errorsontroller extends Controller
+class ErrorsController extends Controller
 {
 
     public function forbiddenResponse()
